@@ -107,6 +107,23 @@ app.js
    npx nodemon app.js
    ```
 
+## .env
+
+ - PORT=[ Your server Port/Domen Name ]
+
+ - DB_URL=[ Data Base Url ]
+
+ - ADMIN_USERNAME=[ Your Username ]
+ - ADMIN_PASSWORD=[ port14012004 ] 
+ - SESSION_SECRET=[ zyxwvutsrqponmlkjihgfedcba9876543210 This Is My SESSION_SECRET ]
+
+ - // nodemaler 
+ - SMTP_USER=[ Your Google app Email Id ]
+ - SMTP_PASS=[ Your Google app password ]
+
+
+
+
 ---
 
 ## 👤 Author
