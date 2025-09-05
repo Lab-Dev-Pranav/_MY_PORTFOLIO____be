@@ -22,6 +22,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Create a transporter for SMTP
@@ -74,13 +75,14 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
-app.get("/skills", async (req, res) => {
-  await Skill.find()
+app.get("/skills", (req, res) => {
+  Skill.find()
+    .sort({ sequence: 1, createdAt: 1 }) // keep your sorting logic
     .then((skills) => {
       res.render("skills.ejs", { skills });
     })
     .catch((err) => {
-      console.error(err);
+      console.error("Error fetching skills:", err);
       res.status(500).send("An error occurred while fetching skills.");
     });
 });
@@ -88,20 +90,6 @@ app.get("/skills", async (req, res) => {
 app.get("/projects", async (req, res) => {
   await Project.find()
     .then((projects) => {
-      // console.log("Projects fetched:", projects);
-      //       Projects fetched: [
-      //   {
-      //     _id: new ObjectId('688bbe033717480dd8f415ca'),
-      //     name: 'SYMON SAYS GAME',
-      //     description: 'A SYMON SAYS GAME With Four Colors To Increase The Mind Concentration...',
-      //     languages: [ 'Html', 'Css', 'Js' ],
-      //     tag: 'Mini',
-      //     githubLink: 'https://github.com/MR-PRANAV/SYMON-SAYS-GAME',
-      //     runLink: 'https://mr-pranav.github.io/SYMON-SAYS-GAME/',
-      //     __v: 0
-      //   }
-      // ]
-
       // Correct sorting based on actual tags
       projects.sort((a, b) => {
         if (a.tag.toLowerCase() === "grand" && b.tag.toLowerCase() !== "grand")
@@ -180,65 +168,16 @@ app.post("/contact", async (req, res) => {
 
 // ------------admin routes-------------------
 
-//AUTH ROUTES START
-// Admin login form
-// app.get("/login", (req, res) => {
-//   res.render("admin-login.ejs", {
-//     username: process.env.SMTP_USER,
-//     title: "Admin Login",
-//   });
-// });
-
-// // Admin login handler
-// app.post("/login", (req, res) => {
-//   const { username, password } = req.body;
-
-//   // Check credentials
-//   if (
-//     username === process.env.ADMIN_USERNAME &&
-//     password === process.env.ADMIN_PASSWORD
-//   ) {
-//     req.session.isAdmin = true; // Set session variable
-//     return res.render("admin-panel.ejs", { title: "Admin Panel" }); // Redirect to admin dashboard
-//   }
-
-//   // If credentials are incorrect, redirect back to login with an error message
-//   res.render("admin-login.ejs", {
-//     title: "Admin Login",
-//     error: "Invalid username or password",
-//   });
-// });
-// //AUTH ROUTES END
-
-// Admin login handler
-// app.post("/login", (req, res) => {
-//   const { username, password } = req.body;
-
-//   // Check credentials
-//   if (
-//     username === process.env.ADMIN_USERNAME &&
-//     password === process.env.ADMIN_PASSWORD
-//   ) {
-//     req.session.isAdmin = true; // Set session variable
-//     return res.render("admin-panel.ejs", { title: "Admin Panel" }); // Redirect to admin dashboard
-//   }
-
-//   // If credentials are incorrect, redirect back to login with an error message
-//   res.render("admin-login.ejs", {
-//     title: "Admin Login",
-//     error: "Invalid username or password",
-//   });
-// });
-//AUTH ROUTES END
-
 app.get("/login", (req, res) => {
+  // req.session.isAdmin = true;
+
   if (req.session.isAdmin === true) {
     return res.render("admin-panel.ejs", { title: "Admin Panel" }); // Redirect to admin dashboard
   }
 
   // Generate a 6-digit OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  console.log("Generated OTP:", otp);
+  // console.log("Generated OTP:", otp);
   req.session.otp = otp; // Store OTP in session
 
   // Send OTP via email
@@ -320,8 +259,9 @@ app.get("/logout", (req, res) => {
 
 //--------------SKILLS ROUTES START--------------------
 // GET skills form
-app.get("/add-skills", isAdmin, (req, res) => {
-  res.render("add-skill.ejs", { title: "Add Skills" });
+app.get("/add-skills", isAdmin, async (req, res) => {
+  const skills = await Skill.find().sort({ sequence: 1, createdAt: 1 });
+  res.render("add-skill.ejs", { title: "Add Skills", skills });
 });
 
 // POST skills handler
@@ -346,6 +286,19 @@ app.post("/add-skills", isAdmin, (req, res) => {
       console.error(err);
       res.status(500).send("An error occurred while saving the skill.");
     });
+});
+
+// Update skill order
+app.post("/admin/reorder", async (req, res) => {
+  const { orderedIds } = req.body; // ["id1", "id2", "id3"]
+
+  // console.log("Reordered IDs:", orderedIds);
+
+  for (let i = 0; i < orderedIds.length; i++) {
+    await Skill.findByIdAndUpdate(orderedIds[i], { sequence: i + 1 });
+  }
+
+  res.json({ success: true });
 });
 //--------------SKILLS ROUTES END--------------------
 

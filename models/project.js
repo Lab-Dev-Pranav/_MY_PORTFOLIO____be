@@ -4,35 +4,39 @@ const projectSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   description: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   languages: [
     {
       type: String,
-      trim: true
-    }
+      trim: true,
+    },
   ],
   tag: {
     type: String,
     enum: ["Grand", "Mini"],
-    required: true
+    required: true,
   },
   githubLink: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   runLink: {
     type: String,
     required: false, // Optional field
     default: "",
-    trim: true
-  }
+    trim: true,
+  },
+  sequence: {
+    type: Number,
+    default: null,
+  },
 });
 
 const Project = mongoose.model("Project", projectSchema);
