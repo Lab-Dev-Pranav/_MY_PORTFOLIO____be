@@ -1,45 +1,62 @@
-
-
 <% layout("/layouts/boilerplate") %>
 
-<!-- Admin Login Form -->
- <div class="adminlinform w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-4 text-center">Admin Login</h2>
+<!-- Admin Login OTP Form -->
+<div class="adminlinform w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-4 text-center"><%= title %></h2>
+  <p>Enter a 6 digit OTP sent to <%= username %></p>
 
+  <% if (error) { %>
+  <script>
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "<%= error %>",
+      timer: 5000,
+      showConfirmButton: false,
+    });
+  </script>
+  <% } %>
+  <br />
+  <form action="/login" method="POST" class="space-y-4">
+    <div>
+      <label for="otp" class="block text-sm font-medium">OTP</label>
+      <input
+        type="text"
+        name="otp"
+        id="otp"
+        required
+        class="mt-1 w-full px-3 py-2 border rounded shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+        maxlength="6"
+        pattern="\d{6}"
+        autofocus
+      />
+    </div>
 
+    <button
+      type="submit"
+      class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+    >
+      Submit
+    </button>
+  </form>
+</div>
 
-    <form action="/login" method="POST" class="space-y-4">
-      <div>
-        <label for="username" class="block text-sm font-medium">Username</label>
-        <input type="text" name="username" id="username" required
-               class="mt-1 w-full px-3 py-2 border rounded shadow-sm focus:outline-none focus:ring focus:border-blue-300" />
-      </div>
+<style>
+  .adminlinform {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
 
-      <div>
-        <label for="password" class="block text-sm font-medium">Password</label>
-        <input type="password" name="password" id="password" required
-               class="mt-1 w-full px-3 py-2 border rounded shadow-sm focus:outline-none focus:ring focus:border-blue-300" />
-      </div>
-
-      <button type="submit"
-              class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-        Login
-      </button>
-    </form>
-  </div>
-
-
-  <style>
-        .adminlinform{
-        max-width: 400px;
-        margin: 50px auto;
-        padding: 20px;
-        background-color: #f9f9f9;
-        border-radius: 8px;
-        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        
-        }
-  </style>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+</style>

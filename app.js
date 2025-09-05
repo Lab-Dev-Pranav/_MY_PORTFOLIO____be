@@ -52,6 +52,7 @@ app.use(
   })
 );
 
+// Middleware S
 // Middleware to check if user is admin
 function isAdmin(req, res, next) {
   if (!req.session.isAdmin) {
@@ -60,6 +61,9 @@ function isAdmin(req, res, next) {
   next();
 }
 
+// Middleware E
+
+// home route
 app.get("/", (req, res) => {
   // res.render("track.ejs");
   res.render("index");
@@ -178,30 +182,141 @@ app.post("/contact", async (req, res) => {
 
 //AUTH ROUTES START
 // Admin login form
+// app.get("/login", (req, res) => {
+//   res.render("admin-login.ejs", {
+//     username: process.env.SMTP_USER,
+//     title: "Admin Login",
+//   });
+// });
+
+// // Admin login handler
+// app.post("/login", (req, res) => {
+//   const { username, password } = req.body;
+
+//   // Check credentials
+//   if (
+//     username === process.env.ADMIN_USERNAME &&
+//     password === process.env.ADMIN_PASSWORD
+//   ) {
+//     req.session.isAdmin = true; // Set session variable
+//     return res.render("admin-panel.ejs", { title: "Admin Panel" }); // Redirect to admin dashboard
+//   }
+
+//   // If credentials are incorrect, redirect back to login with an error message
+//   res.render("admin-login.ejs", {
+//     title: "Admin Login",
+//     error: "Invalid username or password",
+//   });
+// });
+// //AUTH ROUTES END
+
+// Admin login handler
+// app.post("/login", (req, res) => {
+//   const { username, password } = req.body;
+
+//   // Check credentials
+//   if (
+//     username === process.env.ADMIN_USERNAME &&
+//     password === process.env.ADMIN_PASSWORD
+//   ) {
+//     req.session.isAdmin = true; // Set session variable
+//     return res.render("admin-panel.ejs", { title: "Admin Panel" }); // Redirect to admin dashboard
+//   }
+
+//   // If credentials are incorrect, redirect back to login with an error message
+//   res.render("admin-login.ejs", {
+//     title: "Admin Login",
+//     error: "Invalid username or password",
+//   });
+// });
+//AUTH ROUTES END
+
 app.get("/login", (req, res) => {
-  res.render("admin-login.ejs", { title: "Admin Login" });
+  if (req.session.isAdmin === true) {
+    return res.render("admin-panel.ejs", { title: "Admin Panel" }); // Redirect to admin dashboard
+  }
+
+  // Generate a 6-digit OTP
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  console.log("Generated OTP:", otp);
+  req.session.otp = otp; // Store OTP in session
+
+  // Send OTP via email
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.SMTP_USER,
+    to: process.env.SMTP_USER, // Send to admin email
+    subject: "_MR_PRANAV____ Port - Admin Login OTP",
+    html: `
+    <div style="font-family: Arial, sans-serif; max-width: 500px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 8px; background: #f9f9f9;">
+      <h2 style="color: #2d89ef; text-align: center;">🔐 Admin Login OTP From dev-pranav.onrender.com</h2>
+      <p style="font-size: 16px; color: #333;">
+        Your One-Time Password (OTP) for admin login is:
+      </p>
+      <div style="margin: 20px 0; text-align: center;">
+        <span style="display: inline-block; font-size: 24px; font-weight: bold; letter-spacing: 4px; color: #2d2d2d; background: #e6f0ff; padding: 12px 20px; border-radius: 6px;">
+          ${otp}
+        </span>
+      </div>
+      <p style="font-size: 14px; color: #555; text-align: center;">
+        This OTP is valid for <b>3 minutes</b>. Please do not share it with anyone.
+      </p>
+    </div>
+  `,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending OTP email:", error);
+      return res.status(500).send("Error sending OTP email");
+    }
+    // console.log("OTP email sent:", info.response);
+  });
+
+  res.render("admin-login.ejs", {
+    username: process.env.SMTP_USER,
+    title: "Admin Login",
+    error:
+      req.query.error === "invalid_otp"
+        ? "Invalid OTP. Please try again."
+        : null,
+  });
 });
 
 // Admin login handler
 app.post("/login", (req, res) => {
-  const { username, password } = req.body;
+  const { otp } = req.body;
+  const enteredOtp = otp; // OTP entered by user
+  // console.log("Entered OTP:", enteredOtp);
+  // console.log("Session OTP:", req.session.otp);
 
-  // Check credentials
-  if (
-    username === process.env.ADMIN_USERNAME &&
-    password === process.env.ADMIN_PASSWORD
-  ) {
-    req.session.isAdmin = true; // Set session variable
-    return res.render("admin-panel.ejs", { title: "Admin Panel" }); // Redirect to admin dashboard
+  if (enteredOtp === req.session.otp) {
+    req.session.isAdmin = true;
+    req.session.otp = null; // Clear OTP from session after successful login
+    return res.render("admin-panel.ejs", { title: "Admin Panel" });
+  } else {
+    req.session.isAdmin = false;
   }
 
-  // If credentials are incorrect, redirect back to login with an error message
-  res.render("admin-login.ejs", {
-    title: "Admin Login",
-    error: "Invalid username or password",
-  });
+  res.redirect("/login?error=invalid_otp");
 });
-//AUTH ROUTES END
+
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send("Error logging out");
+    }
+  });
+
+  res.redirect("/");
+});
 
 //--------------SKILLS ROUTES START--------------------
 // GET skills form
