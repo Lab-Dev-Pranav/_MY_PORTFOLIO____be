@@ -1824,9 +1824,17 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z"
     border-radius: 15px;
   }
 
+  @media (max-width: 830px) {
+    .iframe-container {
+      padding-top: 75%; /* taller aspect ratio on mobile */
+      height: 900px;
+    }
+  }
+
   @media (max-width: 600px) {
     .iframe-container {
       padding-top: 75%; /* taller aspect ratio on mobile */
+      height: 700px;
     }
   }
 </style>
