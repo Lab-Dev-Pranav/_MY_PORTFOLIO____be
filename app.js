@@ -168,6 +168,49 @@ app.post("/contact", async (req, res) => {
 
 // ------------admin routes-------------------
 
+
+// Admin login handler with username & password
+app.get("/login", (req, res) => {
+  // ✅ If already logged in as admin, go directly to admin panel
+  if (req.session.isAdmin === true) {
+    return res.render("admin-panel.ejs", { title: "Admin Panel" });
+  }
+
+  // ✅ Show login page
+  res.render("admin-login.ejs", {
+    username: process.env.SMTP_USER, 
+    title: "Admin Login",
+    error:
+      req.query.error === "invalid_credentials"
+        ? "Invalid username or password. Please try again."
+        : null,
+  });
+});
+
+// ✅ Admin login handler with username & password
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  // ✅ Compare with ENV credentials
+  if (
+    username === process.env.ADMIN_USERNAME &&
+    password === process.env.ADMIN_PASSWORD
+  ) {
+    req.session.isAdmin = true;
+    return res.render("admin-panel.ejs", { title: "Admin Panel" });
+  } else {
+    req.session.isAdmin = false;
+    return res.redirect("/login?error=invalid_credentials");
+  }
+});
+
+
+
+
+
+
+
+// // Admin login route with OTP 
 // app.get("/login", (req, res) => {
 //   // req.session.isAdmin = true;
 
@@ -230,45 +273,7 @@ app.post("/contact", async (req, res) => {
 // });
 
 
-app.get("/login", (req, res) => {
-  // ✅ If already logged in as admin, go directly to admin panel
-  if (req.session.isAdmin === true) {
-    return res.render("admin-panel.ejs", { title: "Admin Panel" });
-  }
-
-  // ✅ Show login page
-  res.render("admin-login.ejs", {
-    username: process.env.SMTP_USER, 
-    title: "Admin Login",
-    error:
-      req.query.error === "invalid_credentials"
-        ? "Invalid username or password. Please try again."
-        : null,
-  });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Admin login handler
+// // Admin login handler with OTP
 // app.post("/login", (req, res) => {
 //   const { otp } = req.body;
 //   const enteredOtp = otp; // OTP entered by user
@@ -288,22 +293,6 @@ app.get("/login", (req, res) => {
 
 
 
-// ✅ Admin login handler
-app.post("/login", (req, res) => {
-  const { username, password } = req.body;
-
-  // ✅ Compare with ENV credentials
-  if (
-    username === process.env.ADMIN_USERNAME &&
-    password === process.env.ADMIN_PASSWORD
-  ) {
-    req.session.isAdmin = true;
-    return res.render("admin-panel.ejs", { title: "Admin Panel" });
-  } else {
-    req.session.isAdmin = false;
-    return res.redirect("/login?error=invalid_credentials");
-  }
-});
 
 
 
