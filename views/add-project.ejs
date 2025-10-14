@@ -214,7 +214,7 @@
         <ul id="projectList" class="list-group list-group-flush rounded-3">
           <% if (typeof projects !== 'undefined' && projects.length) { %>
             <% projects.forEach((project, index) => { %>
-              <li class="list-group-item d-flex align-items-center project-item" draggable="true" data-id="<%= project._id %>">
+              <li class="list-group-item d-flex align-items-center project-item m-4" draggable="true" data-id="<%= project._id %>">
                 <div style="display: flex; justify-content: space-between; width:100%;">
                   <div>
                     <span class="badge bg-primary sequence px-3 py-2 me-3 fs-6"><%= index + 1 %></span>
@@ -225,6 +225,7 @@
                   </div>
                 </div>
               </li>
+              <hr>
             <% }) %>
           <% } else { %>
             <li class="list-group-item">No projects yet.</li>
