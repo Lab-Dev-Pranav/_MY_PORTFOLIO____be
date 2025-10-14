@@ -204,6 +204,38 @@
     <div
       class="admin-panel w-full max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-2xl border border-gray-200"
     ></div>
+    
+    <!-- Reorder Projects Section -->
+    <div class="container my-8">
+      <div class="card shadow-lg border-0 rounded-4 p-5">
+        <h3 class="fw-bold text-center text-gradient mb-4">🔀 Reorder Your Projects</h3>
+        <p class="text-muted text-center mb-4">Drag and drop projects to change their display order. Click <strong>Save Sequence</strong> to persist.</p>
+
+        <ul id="projectList" class="list-group list-group-flush rounded-3">
+          <% if (typeof projects !== 'undefined' && projects.length) { %>
+            <% projects.forEach((project, index) => { %>
+              <li class="list-group-item d-flex align-items-center project-item" draggable="true" data-id="<%= project._id %>">
+                <div style="display: flex; justify-content: space-between; width:100%;">
+                  <div>
+                    <span class="badge bg-primary sequence px-3 py-2 me-3 fs-6"><%= index + 1 %></span>
+                    <span class="fw-semibold fs-5"><%= project.name %></span>
+                  </div>
+                  <div>
+                    <span class="handle text-muted fs-4 ms-3" style="cursor: grab">☰</span>
+                  </div>
+                </div>
+              </li>
+            <% }) %>
+          <% } else { %>
+            <li class="list-group-item">No projects yet.</li>
+          <% } %>
+        </ul>
+
+        <div class="text-center mt-4">
+          <button id="saveProjectOrder" class="btn btn-lg btn-gradient px-5 py-2">💾 Save Sequence</button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -261,5 +293,58 @@
         }
       },
     };
+  }
+</script>
+
+<!-- Reorder projects JS -->
+<script>
+  const projectList = document.getElementById("projectList");
+  let draggedProject = null;
+
+  if (projectList) {
+    projectList.addEventListener("dragstart", (e) => {
+      draggedProject = e.target;
+      e.target.style.opacity = 0.5;
+    });
+
+    projectList.addEventListener("dragend", (e) => {
+      e.target.style.opacity = "";
+    });
+
+    projectList.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      const target = e.target.closest("li");
+      if (target && target !== draggedProject) {
+        projectList.insertBefore(draggedProject, target.nextSibling);
+      }
+    });
+
+    document.getElementById("saveProjectOrder").addEventListener("click", async (e) => {
+      const btn = e.currentTarget;
+      btn.disabled = true;
+      const orderedIds = [...projectList.querySelectorAll("li")].map((li) => li.dataset.id).filter(Boolean);
+
+      try {
+        const res = await fetch("/admin/reorder-projects", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ orderedIds }),
+        });
+
+        const json = await res.json().catch(() => ({}));
+        if (res.ok && json.success) {
+          alert("Project order saved!");
+          // Optionally reload to update sequence badges
+          setTimeout(() => location.reload(), 600);
+        } else {
+          throw new Error((json && json.error) || "Failed to save order");
+        }
+      } catch (err) {
+        console.error("Error saving project order:", err);
+        alert("Error saving project order: " + (err.message || "Unknown error"));
+      } finally {
+        btn.disabled = false;
+      }
+    });
   }
 </script>

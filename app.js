@@ -87,22 +87,14 @@ app.get("/skills", (req, res) => {
     });
 });
 
-app.get("/projects", async (req, res) => {
-  await Project.find()
+app.get("/projects", (req, res) => {
+  Project.find()
+    .sort({ sequence: 1, createdAt: 1 })
     .then((projects) => {
-      // Correct sorting based on actual tags
-      projects.sort((a, b) => {
-        if (a.tag.toLowerCase() === "grand" && b.tag.toLowerCase() !== "grand")
-          return -1;
-        if (a.tag.toLowerCase() !== "grand" && b.tag.toLowerCase() === "grand")
-          return 1;
-        return 0;
-      });
-
       res.render("projects.ejs", { projects });
     })
     .catch((err) => {
-      console.error(err);
+      console.error("Error fetching projects:", err);
       res.status(500).send("An error occurred while fetching projects.");
     });
 });
@@ -357,8 +349,14 @@ app.post("/admin/reorder", async (req, res) => {
 
 //---------------PROJECTS ROUTES START--------------------
 // get project form
-app.get("/add-projects", isAdmin, (req, res) => {
-  res.render("add-project.ejs", { title: "Add Projects" });
+app.get("/add-projects", isAdmin, async (req, res) => {
+  try {
+    const projects = await Project.find().sort({ sequence: 1, createdAt: 1 });
+    res.render("add-project.ejs", { title: "Add Projects", projects });
+  } catch (err) {
+    console.error("Error fetching projects for admin form:", err);
+    res.render("add-project.ejs", { title: "Add Projects", projects: [] });
+  }
 });
 
 // POST /add-project handler
@@ -393,6 +391,36 @@ app.post("/add-project", isAdmin, (req, res) => {
 });
 
 //----------------PROJECTS ROUTES END--------------------
+
+// Update projects order (protected)
+app.post("/admin/reorder-projects", isAdmin, async (req, res) => {
+  const { orderedIds } = req.body;
+  try {
+    if (!Array.isArray(orderedIds)) {
+      return res.status(400).json({ success: false, error: "orderedIds must be an array" });
+    }
+
+    // validate ids
+    const invalid = orderedIds.find((id) => !mongoose.Types.ObjectId.isValid(id));
+    if (invalid) {
+      return res.status(400).json({ success: false, error: "one or more ids are invalid" });
+    }
+
+    const bulkOps = orderedIds.map((id, idx) => ({
+      updateOne: {
+        filter: { _id: id },
+        update: { $set: { sequence: idx + 1 } },
+      },
+    }));
+
+    if (bulkOps.length) await Project.bulkWrite(bulkOps);
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Error reordering projects:", err);
+    res.status(500).json({ success: false, error: "server_error" });
+  }
+});
 
 //---------------EXPERIENCE ROUTES START--------------------
 // get experience form
