@@ -43,7 +43,25 @@
     </section>
   </div>
 
+
+
+  <button id="startBtn" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 text-white text-2xl font-bold">
+  🎆 Start the Celebration!
+</button>
+
+
+
+
+
+
 <script>
+
+  const btn = document.getElementById('startBtn');
+btn.addEventListener('click', () => {
+  btn.style.display = 'none'; // Hide button
+  startFireworks(); // Your fireworks + sound function
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("fireworks");
   const ctx = canvas.getContext("2d");
@@ -81,12 +99,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+
+
+
     explode() {
       const colors = ["#FFD700", "#FFA500", "#FF69B4", "#FF4500", "#FFFACD"];
       const color = colors[Math.floor(random(0, colors.length))];
       for (let i = 0; i < 60; i++) {
         particles.push(new Particle(this.x, this.y, color));
       }
+      const popSound = new Audio("sound/fireworks-sound-fireworks-sound-shorts-short_9NmyU6Rj.mp3");
+  popSound.volume = 0.2;
+  popSound.play();
     }
 
     draw() {
