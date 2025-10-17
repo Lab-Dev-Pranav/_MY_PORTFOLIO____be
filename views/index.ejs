@@ -53,23 +53,24 @@
 
 
 
+<button id="startBtn" class="px-6 py-3 bg-indigo-600 text-white rounded-full mt-4 hover:bg-indigo-700">
+  🎆 Start Celebration
+</button>
+
+<canvas id="fireworks"></canvas>
 
 <script>
-
   const btn = document.getElementById('startBtn');
-btn.addEventListener('click', () => {
-  btn.style.display = 'none'; // Hide button
-  startFireworks(); // Your fireworks + sound function
-});
-
-document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("fireworks");
   const ctx = canvas.getContext("2d");
+
+  const bgMusic = new Audio("sound/Mere Tumhare Sabke Liye Happy Diwali  WhatsApp Status Video  Happy Diwali 2018.mp3");
+  bgMusic.volume = 0.2;
+  bgMusic.loop = true; // keep background song looping
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-   
   }
   window.addEventListener("resize", resizeCanvas);
   resizeCanvas();
@@ -87,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
       this.y = y;
       this.targetY = targetY;
       this.speed = 3;
-      this.color = `hsl(${random(30, 60)}, 100%, 60%)`; // warm golds/oranges
+      this.color = `hsl(${random(30, 60)}, 100%, 60%)`;
       this.exploded = false;
     }
 
@@ -99,9 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-
-
-
     explode() {
       const colors = ["#FFD700", "#FFA500", "#FF69B4", "#FF4500", "#FFFACD"];
       const color = colors[Math.floor(random(0, colors.length))];
@@ -109,8 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
         particles.push(new Particle(this.x, this.y, color));
       }
       const popSound = new Audio("sound/fireworks-sound-fireworks-sound-shorts-short_9NmyU6Rj.mp3");
-  popSound.volume = 0.2;
-  popSound.play();
+      popSound.volume = 0.3;
+      popSound.play();
     }
 
     draw() {
@@ -176,8 +174,15 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(animate);
   }
 
-  animate();
-});
+  function startFireworks() {
+    bgMusic.play(); // ✅ play once, not inside animation loop
+    animate();
+  }
+
+  btn.addEventListener('click', () => {
+    btn.style.display = 'none';
+    startFireworks();
+  });
 </script>
 
 
