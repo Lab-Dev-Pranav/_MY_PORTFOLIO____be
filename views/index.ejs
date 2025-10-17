@@ -1,7 +1,9 @@
 <% layout("/layouts/boilerplate") %>
 
   <!-- Home Page hero section S-->
-  <div id="vanta-bg" class="min-h-screen flex items-center justify-center">
+   <!-- id="vanta-bg"  -->
+<div class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <canvas id="fireworks" class="absolute inset-0 z-0 pointer-events-none"></canvas>
     <section
       class="home-page flex flex-col-reverse md:flex-row items-center justify-center min-h-screen px-6 md:px-12 w-full">
       <!-- Text -->
@@ -12,15 +14,24 @@
         <p class="text-xl text-white typewriter-text" id="typing"></p>
         <hr />
         <br />
+         <h1 class="text-4xl text-white md:text-19xl font-extrabold">
+          Happy Diwali 2025! 🪔
+        </h1>
+
+        <div class="diwali-wishes text-yellow-300 font-semibold text-lg">
+          🎉 Wishing you a joyous and prosperous Diwali! May this festival of lights illuminate your life with happiness,
+          success, and good health. 🪔✨
+        </div>
+
         <!-- about btn -->
-        <a href="#about"
+        <!-- <a href="#about"
           class="px-6 py-3 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition duration-300">
           About Me
         </a>
         <a href="/contact"
           class="px-6 py-3 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition duration-300">
           Resume
-        </a>
+        </a> -->
       </div>
 
       <!-- Photo -->
@@ -32,9 +43,140 @@
     </section>
   </div>
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("fireworks");
+  const ctx = canvas.getContext("2d");
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+   
+  }
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
+  const fireworks = [];
+  const particles = [];
+
+  function random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  class Firework {
+    constructor(x, y, targetY) {
+      this.x = x;
+      this.y = y;
+      this.targetY = targetY;
+      this.speed = 3;
+      this.color = `hsl(${random(30, 60)}, 100%, 60%)`; // warm golds/oranges
+      this.exploded = false;
+    }
+
+    update() {
+      this.y -= this.speed;
+      if (this.y <= this.targetY && !this.exploded) {
+        this.explode();
+        this.exploded = true;
+      }
+    }
+
+    explode() {
+      const colors = ["#FFD700", "#FFA500", "#FF69B4", "#FF4500", "#FFFACD"];
+      const color = colors[Math.floor(random(0, colors.length))];
+      for (let i = 0; i < 60; i++) {
+        particles.push(new Particle(this.x, this.y, color));
+      }
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+  }
+
+  class Particle {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.color = color;
+      this.size = 2;
+      this.speedX = random(-3, 3);
+      this.speedY = random(-3, 3);
+      this.alpha = 1;
+      this.gravity = 0.04;
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.speedY += this.gravity;
+      this.alpha -= 0.015;
+    }
+
+    draw() {
+      ctx.globalAlpha = this.alpha;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  function animate() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    fireworks.forEach((f, i) => {
+      f.update();
+      f.draw();
+      if (f.exploded) fireworks.splice(i, 1);
+    });
+
+    particles.forEach((p, i) => {
+      p.update();
+      p.draw();
+      if (p.alpha <= 0) particles.splice(i, 1);
+    });
+
+    if (Math.random() < 0.04) {
+      const x = random(100, canvas.width - 100);
+      const y = canvas.height;
+      const targetY = random(canvas.height / 4, canvas.height / 2);
+      fireworks.push(new Firework(x, y, targetY));
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+});
+</script>
+
+
+
+
   <style>
     .min-h-screen {
+       background-color: #010b1a00;
       user-select: none;
+    }
+
+#fireworks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* background layer */
+}
+
+    .home-page{
+      z-index: 10;
+        position: relative;
     }
 
     .home-page div a {
