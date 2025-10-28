@@ -1190,7 +1190,7 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
               Bachelor of Business Administration (Computer Application)
             </h3>
             <p class="text-sm text-gray-600">Sinhgad College of Science, Pune</p>
-            <p class="text-sm text-gray-500">Graduated: 2024</p>
+            <p class="text-sm text-gray-500">Graduated: 2025</p>
           </div>
         </div>
 
@@ -1225,7 +1225,7 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
   <!-- Home Page Academics Section E-->
 
   <!-- Certificate Section -->
-  <section id="certificates" class="certificate-section">
+  <!-- <section id="certificates" class="certificate-section">
     <h2 class="section-title">📜 My Certificates</h2>
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
@@ -1245,14 +1245,161 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
           <p>Issued by Apna College - july 2025</p>
         </div>
         <div class="swiper-slide cert-card">
-          <img src="/Cert/cert2.png" alt="full Stack Web Devlopment in MERN 3" />
-          <h3>Sample Data - Fake Ignore It</h3>
-          <p>Issued by Apna College - May 2025</p>
+          <img src="/Cert/cert4.png" alt="full Stack Web Devlopment in MERN 3" />
+          <h3>Node.js Bootcamp</h3>
+          <p>Issued by letsUpgrade.in - 25 Oct 2025</p>
         </div>
       </div>
       <div class="swiper-pagination"></div>
     </div>
-  </section>
+  </section> -->
+
+
+<section id="certificates" class="certificate-section">
+  <style>
+    .certificate-section {
+      position: relative;
+      padding: 50px 0;
+    }
+
+    .cert-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .cert-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      cursor: pointer;
+      display: block;
+    }
+
+    /* Fullscreen icon */
+    .fullscreen-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 183, 67, 0.6);
+      color: white;
+      padding: 6px;
+      border-radius: 8px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .cert-card:hover .fullscreen-icon {
+      opacity: 1;
+    }
+
+    /* Fullscreen overlay */
+    .fullscreen-view {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .fullscreen-view img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+    }
+
+    .close-fullscreen {
+      position: absolute;
+      top: 25px;
+      right: 30px;
+      font-size: 32px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+
+  <h2 class="section-title">📜 My Certificates</h2>
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide cert-card">
+        <img src="/Cert/cert1.png" alt="NSS 1" />
+        <div class="fullscreen-icon" onclick="openFullscreen('/Cert/cert1.png')">⛶</div>
+        <h3>National Service Scheme (NSS)</h3>
+        <p>Issued by SCOS-SPPU - June 2025</p>
+      </div>
+
+      <div class="swiper-slide cert-card">
+        <img src="/Cert/cert2.png" alt="Advanced DSA With Java 2" />
+        <div class="fullscreen-icon" onclick="openFullscreen('/Cert/cert2.png')">⛶</div>
+        <h3>Advanced DSA With Java</h3>
+        <p>Issued by Apna College - May 2024</p>
+      </div>
+
+      <div class="swiper-slide cert-card">
+        <img src="/Cert/cert3.png" alt="Full Stack Web Development in MERN 3" />
+        <div class="fullscreen-icon" onclick="openFullscreen('/Cert/cert3.png')">⛶</div>
+        <h3>Delta (Full Stack Web Development)</h3>
+        <p>Issued by Apna College - July 2025</p>
+      </div>
+
+      <div class="swiper-slide cert-card">
+        <img src="/Cert/cert4.png" alt="Node.js Bootcamp 4" />
+        <div class="fullscreen-icon" onclick="openFullscreen('/Cert/cert4.png')">⛶</div>
+        <h3>Node.js Bootcamp</h3>
+        <p>Issued by LetsUpgrade.in - 25 Oct 2025</p>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <!-- Fullscreen view -->
+  <div class="fullscreen-view" id="fullscreenView">
+    <span class="close-fullscreen" onclick="closeFullscreen()">&times;</span>
+    <img id="fullscreenImg" src="" alt="Fullscreen Certificate" />
+  </div>
+
+  <script>
+    function openFullscreen(src) {
+      const view = document.getElementById('fullscreenView');
+      const img = document.getElementById('fullscreenImg');
+      img.src = src;
+      view.style.display = 'flex';
+    }
+
+    function closeFullscreen() {
+      document.getElementById('fullscreenView').style.display = 'none';
+    }
+
+    // Optional: close fullscreen on pressing ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeFullscreen();
+    });
+  </script>
+</section>
+
+
+
+
+
+
+
+
+
+
 
   <!-- Responsibilities & Achievements Section -->
   <section class="min-h-screen bg-white py-20 px-6">
