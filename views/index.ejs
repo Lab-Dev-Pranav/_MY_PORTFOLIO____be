@@ -1,8 +1,8 @@
 <% layout("/layouts/boilerplate") %>
 
   <!-- Home Page hero section S-->
-   
-<div id="vanta-bg"  class=" relative min-h-screen flex items-center justify-center overflow-hidden">
+
+  <div id="vanta-bg" class=" relative min-h-screen flex items-center justify-center overflow-hidden">
     <section
       class="home-page flex flex-col-reverse md:flex-row items-center justify-center min-h-screen px-6 md:px-12 w-full">
       <!-- Text -->
@@ -22,7 +22,7 @@
 
 
 
-       
+
 
 
         <!-- about btn -->
@@ -60,14 +60,14 @@
 
   <style>
     .min-h-screen {
-       background-color: #010b1a00;
+      background-color: #010b1a00;
       user-select: none;
     }
 
 
-    .home-page{
+    .home-page {
       z-index: 10;
-        position: relative;
+      position: relative;
     }
 
     .home-page div a {
@@ -284,7 +284,7 @@
     /* Text Styling */
     .home-about-text {
       opacity: 0;
-    
+
       max-width: 700px;
       padding: 0 10px;
       text-align: center;
@@ -342,7 +342,6 @@
     }
 
     /* Animation */
-  
   </style>
 
   <!-- Home Page About section E-->
@@ -1224,179 +1223,545 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
   </section>
   <!-- Home Page Academics Section E-->
 
-  <!-- Certificate Section -->
-  <!-- <section id="certificates" class="certificate-section">
+
+
+
+  <!-- ---------------------------------------------------------- -->
+  <!-- ---------------------------------------------------------- -->
+  <!-- ---------------------------------------------------------- -->
+  <!-- ---------------------------------------------------------- -->
+  <!-- ---------------------------------------------------------- -->
+  <!-- Blog Section S -->
+  <div class="container">
+    <section id="blog" class="blog-section py-12 px-4 bg-white">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center text-gray-800 mb-10"> 
+          ✍️Blog Posts</h2>
+
+        <!-- Blog grid  container -->
+        <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Script -->
+  <script>
+    // DATA STARTED
+    const blogPosts = [
+      // blog posts data 1
+    {
+      id: 1,
+      title: "From Building Projects to Building Mindset",
+      subtitle: "🗂️ to 🧠",
+      date: "Oct 29 2025",
+      content: `
+    
+        <p>When I first started coding, my goal was simple — just make things work. I didn’t care much about structure, design patterns, or optimization. The satisfaction of seeing “Hello World” on the screen was enough to keep me going.</p>
+
+        <p>But somewhere along the way, I realized something deeper — it’s not just about writing cleaner or more efficient code. It’s about <strong>building yourself</strong> through every project you create.</p>
+
+        <p>Every “console.log()” that failed taught me patience.<br>
+        Every deployment that broke taught me resilience.<br>
+        And every feature that finally worked reminded me <em>why I started</em>.</p>
+
+        <p>Over time, I understood that real growth doesn’t come from the big achievements everyone sees — the flashy launches or perfect commits. It comes from the quiet, persistent effort behind the scenes.</p>
+
+        <p>We often chase success in numbers — followers, stars, downloads. But the true reward lies in how much we’ve evolved as creators, thinkers, and problem-solvers.</p>
+
+        <blockquote>“What will this project teach me beyond the code?”</blockquote>
+
+        <p>Because at the end of the day, every project is more than just an app, a feature, or a repository. It’s a chapter in your story as a builder — and the story is what truly matters.</p>
+      `,
+    },
+
+    // blog posts data 2
+//     {
+//   id: 2,
+//   title: "From Writing Code to Crafting Experiences",
+//   subtitle: "💻 to ✨",
+//   content: `
+//     <p>When I first started building websites, I focused on one thing — <strong>making them work</strong>. Buttons clicked, data fetched, pages loaded. That was enough to feel like progress.</p>
+
+//     <p>But with time, I realized that code alone doesn’t make something great. A product isn’t defined by its logic — it’s defined by <strong>how it makes people feel</strong>.</p>
+
+//     <p>Every layout that felt awkward taught me about balance.<br>
+//     Every slow-loading page taught me about patience and optimization.<br>
+//     And every user who got confused reminded me of the importance of empathy.</p>
+
+//     <p>Somewhere between pixels and functions, I stopped thinking like a coder — and started thinking like a creator. I began to see design and development not as separate disciplines, but as two sides of the same story: <em>the story of user experience</em>.</p>
+
+//     <p>Great experiences aren’t built with frameworks or libraries. They’re built with curiosity — the willingness to ask, “What would make this smoother? Simpler? More human?”</p>
+
+//     <blockquote>“Good code solves a problem. Great code solves it beautifully.”</blockquote>
+
+//     <p>Now, every project I build is not just a tool or a feature — it’s an experience. Because what we truly create isn’t just code — it’s connection.</p>
+//   `,
+// }
+
+];
+// data ENDS
+
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const blogGrid = document.getElementById("blog-grid");
+      const fullscreenContainer = document.createElement("div");
+      fullscreenContainer.classList.add("fullscreen-container");
+      document.body.appendChild(fullscreenContainer);
+
+      blogPosts.forEach((post, index) => {
+        const card = document.createElement("div");
+        card.classList.add("main");
+        card.innerHTML = `
+        <div class="card">
+          <div class="fl">
+            <div class="fullscreen" data-index="${index}">
+              <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fcfcfc"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M2 2.5C2 2.22386 2.22386 2 2.5 2H5.5C5.77614 2 6 2.22386 6 2.5C6 2.77614 5.77614 3 5.5 3H3V5.5C3 5.77614 2.77614 6 2.5 6C2.22386 6 2 5.77614 2 5.5V2.5ZM9 2.5C9 2.22386 9.22386 2 9.5 2H12.5C12.7761 2 13 2.22386 13 2.5V5.5C13 5.77614 12.7761 6 12.5 6C12.2239 6 12 5.77614 12 5.5V3H9.5C9.22386 3 9 2.77614 9 2.5ZM2.5 9C2.77614 9 3 9.22386 3 9.5V12H5.5C5.77614 12 6 12.2239 6 12.5C6 12.7761 5.77614 13 5.5 13H2.5C2.22386 13 2 12.7761 2 12.5V9.5C2 9.22386 2.22386 9 2.5 9ZM12.5 9C12.7761 9 13 9.22386 13 9.5V12.5C13 12.7761 12.7761 13 12.5 13H9.5C9.22386 13 9 12.7761 9 12.5C9 12.2239 9.22386 12 9.5 12H12V9.5C12 9.22386 12.2239 9 12.5 9Z" fill="#000000"></path> </g></svg>
+            </div>
+          </div>
+          <div class="card_content"><h1>${post.subtitle}</h1></div>
+          <div class="card_back"></div>
+        </div>
+        <div class="data">
+          <div class="text">
+            <div class="text_m">${post.title}</div>
+          </div>
+        </div>
+      `;
+        blogGrid.appendChild(card);
+      });
+
+      blogGrid.addEventListener("click", (e) => {
+        const btn = e.target.closest(".fullscreen");
+        if (!btn) return;
+        const index = btn.getAttribute("data-index");
+        openFullscreen(blogPosts[index]);
+      });
+
+      function openFullscreen(post) {
+        fullscreenContainer.innerHTML = `
+        <div class="fullscreen-overlay">
+          <div class="fullscreen-content">
+                         <button class="close-fullscreen">✕</button>
+
+            <div class="fullscreen-header">
+              <h1>${post.title}</h1>
+              <p class="text-sm text-gray-500">
+                <u>${post.date}</u>
+              </p>
+            </div>
+            <div class="fullscreen-body">${post.content}</div>
+          </div>
+        </div>
+      `;
+        fullscreenContainer.classList.add("active");
+
+        const closeBtn = fullscreenContainer.querySelector(".close-fullscreen");
+        closeBtn.addEventListener("click", closeFullscreen);
+      }
+
+      function closeFullscreen() {
+        fullscreenContainer.classList.remove("active");
+        fullscreenContainer.innerHTML = "";
+      }
+    });
+  </script>
+
+  <style>
+.fullscreen-container {
+  display: none;
+}
+
+.fullscreen-container.active {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(22, 22, 30, 0.95), rgba(10, 10, 15, 0.95));
+  backdrop-filter: blur(14px) saturate(180%);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.fullscreen-content {
+  background: linear-gradient(135deg, #ffffff, #f7f9fc);
+  max-width: 850px;
+  width: 100%;
+  padding: 3rem;
+  border-radius: 1.8rem;
+  overflow-y: auto;
+  max-height: 90vh;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  position: relative;
+  transform-origin: center;
+  animation: zoomIn 0.4s ease;
+  transition: all 0.3s ease;
+}
+
+.fullscreen-content:hover {
+  transform: scale(1.01);
+  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.3);
+}
+.close-fullscreen {
+  position: absolute;
+  top: 1.6rem;
+  right: 1.2rem;
+  background:  linear-gradient(135deg, #718bff, #3b5bff); 
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #222;
+  border-radius: 5px;
+  width: 2.4rem;
+  height: 2.4rem;
+  line-height: 2.4rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+}
+
+
+
+
+.fullscreen-content h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #1c1f2e;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #eceff3;
+  padding-bottom: 0.5rem;
+}
+
+.fullscreen-body {
+  font-family: "Inter", sans-serif;
+  color: #3c3f4a;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  animation: fadeSlideIn 0.6s ease;
+}
+
+.fullscreen-body p {
+  margin: 1rem 0;
+}
+
+.fullscreen-body blockquote {
+  border-left: 4px solid #007aff;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #222;
+  background: rgba(0, 122, 255, 0.05);
+  border-radius: 6px;
+}
+
+.fullscreen-content::-webkit-scrollbar {
+  width: 6px;
+}
+.fullscreen-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #007aff, #4c7fff);
+  border-radius: 10px;
+}
+.fullscreen-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.92) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+    /* ------------------- CARD STYLES -------------- */
+    .main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin: 2em;
+      background: #cfcfcf;
+      padding: 40px 20px;
+      border-radius: 10px;
+    }
+
+    .card {
+      width: 15em;
+      height: 10em;
+      background: #2e1c46;
+      border-radius: 7px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fl {
+      display: flex;
+      justify-content: flex-end;
+      opacity: 0;
+      transition: .2s ease-in-out;
+    }
+
+    .main:hover .fl {
+      opacity: 1;
+      cursor: pointer;
+      margin-right: 0.5em;
+    }
+
+    .fullscreen {
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 5px;
+      background: #727890;
+      margin: 1em 0.5em 1em 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: .2s;
+      box-shadow: 2px 2px 6px rgba(57, 198, 90, 0.4);
+      cursor: pointer;
+    }
+
+    .fullscreen_svg {
+      width: 15px;
+      height: 15px;
+      fill: rgb(177, 176, 176);
+      transition: .2s;
+    }
+
+    .fl:hover .fullscreen {
+      scale: 1.2;
+    }
+
+    .fl:hover .fullscreen_svg {
+      fill: white;
+    }
+
+    .card_back {
+      position: absolute;
+      width: 15em;
+      height: 13em;
+      background-color: rgba(30, 31, 38, 0.575);
+      border-radius: 7px;
+      margin-top: -5em;
+      margin-left: 0.7em;
+      transition: .2s;
+      z-index: -1;
+    }
+
+    .main:hover .card_back {
+      margin-top: -6.25em;
+      margin-left: 0em;
+      scale: 1.1;
+      height: 15.25em;
+    }
+
+    .data {
+      display: flex;
+      flex-direction: row;
+      margin-top: 1em;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      margin-left: 0.5em;
+      font-family: Montserrat;
+      color: rgb(57, 57, 57);
+    }
+
+    .text_m {
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    .card_content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 50px;
+    }
+  </style>
+  <!-- Blog Section E -->
+  <!-- ---------------------------------------------------------- -->
+  <!-- ---------------------------------------------------------- -->
+  <!-- ---------------------------------------------------------- -->
+  <!-- ---------------------------------------------------------- -->
+  <!-- ---------------------------------------------------------- -->
+
+
+
+
+
+
+
+  <!-- Certificates Section S-->
+  <section id="certificates" class="certificate-section">
+    <style>
+      .certificate-section {
+        position: relative;
+        padding: 50px 0;
+      }
+
+      .cert-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .cert-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .cert-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 16px;
+        cursor: pointer;
+        display: block;
+      }
+
+      /* Fullscreen icon */
+      .fullscreen-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 183, 67, 0.6);
+        color: white;
+        padding: 6px;
+        border-radius: 8px;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .cert-card:hover .fullscreen-icon {
+        opacity: 1;
+      }
+
+      /* Fullscreen overlay */
+      .fullscreen-view {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .fullscreen-view img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 12px;
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+      }
+
+      .close-fullscreen {
+        position: absolute;
+        top: 25px;
+        right: 30px;
+        font-size: 32px;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+      }
+    </style>
+
     <h2 class="section-title">📜 My Certificates</h2>
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
         <div class="swiper-slide cert-card">
           <img src="/Cert/cert1.png" alt="NSS 1" />
+          <div class="fullscreen-icon" onclick="openFullscreen('/Cert/cert1.png')">⛶</div>
           <h3>National Service Scheme (NSS)</h3>
           <p>Issued by SCOS-SPPU - June 2025</p>
         </div>
+
         <div class="swiper-slide cert-card">
           <img src="/Cert/cert2.png" alt="Advanced DSA With Java 2" />
+          <div class="fullscreen-icon" onclick="openFullscreen('/Cert/cert2.png')">⛶</div>
           <h3>Advanced DSA With Java</h3>
           <p>Issued by Apna College - May 2024</p>
         </div>
+
         <div class="swiper-slide cert-card">
-          <img src="/Cert/cert3.png" alt="full Stack Web Devlopment in MERN 3" />
-          <h3>Delta (Full Stack Web Development).</h3>
-          <p>Issued by Apna College - july 2025</p>
+          <img src="/Cert/cert3.png" alt="Full Stack Web Development in MERN 3" />
+          <div class="fullscreen-icon" onclick="openFullscreen('/Cert/cert3.png')">⛶</div>
+          <h3>Delta (Full Stack Web Development)</h3>
+          <p>Issued by Apna College - July 2025</p>
         </div>
+
         <div class="swiper-slide cert-card">
-          <img src="/Cert/cert4.png" alt="full Stack Web Devlopment in MERN 3" />
+          <img src="/Cert/cert4.png" alt="Node.js Bootcamp 4" />
+          <div class="fullscreen-icon" onclick="openFullscreen('/Cert/cert4.png')">⛶</div>
           <h3>Node.js Bootcamp</h3>
-          <p>Issued by letsUpgrade.in - 25 Oct 2025</p>
+          <p>Issued by LetsUpgrade.in - 25 Oct 2025</p>
         </div>
       </div>
       <div class="swiper-pagination"></div>
     </div>
-  </section> -->
 
-
-<section id="certificates" class="certificate-section">
-  <style>
-    .certificate-section {
-      position: relative;
-      padding: 50px 0;
-    }
-
-    .cert-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 16px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
-    }
-
-    .cert-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .cert-card img {
-      width: 100%;
-      height: auto;
-      border-radius: 16px;
-      cursor: pointer;
-      display: block;
-    }
-
-    /* Fullscreen icon */
-    .fullscreen-icon {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: rgba(255, 183, 67, 0.6);
-      color: white;
-      padding: 6px;
-      border-radius: 8px;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .cert-card:hover .fullscreen-icon {
-      opacity: 1;
-    }
-
-    /* Fullscreen overlay */
-    .fullscreen-view {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .fullscreen-view img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 12px;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
-    }
-
-    .close-fullscreen {
-      position: absolute;
-      top: 25px;
-      right: 30px;
-      font-size: 32px;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-    }
-  </style>
-
-  <h2 class="section-title">📜 My Certificates</h2>
-  <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide cert-card">
-        <img src="/Cert/cert1.png" alt="NSS 1" />
-        <div class="fullscreen-icon" onclick="openFullscreen('/Cert/cert1.png')">⛶</div>
-        <h3>National Service Scheme (NSS)</h3>
-        <p>Issued by SCOS-SPPU - June 2025</p>
-      </div>
-
-      <div class="swiper-slide cert-card">
-        <img src="/Cert/cert2.png" alt="Advanced DSA With Java 2" />
-        <div class="fullscreen-icon" onclick="openFullscreen('/Cert/cert2.png')">⛶</div>
-        <h3>Advanced DSA With Java</h3>
-        <p>Issued by Apna College - May 2024</p>
-      </div>
-
-      <div class="swiper-slide cert-card">
-        <img src="/Cert/cert3.png" alt="Full Stack Web Development in MERN 3" />
-        <div class="fullscreen-icon" onclick="openFullscreen('/Cert/cert3.png')">⛶</div>
-        <h3>Delta (Full Stack Web Development)</h3>
-        <p>Issued by Apna College - July 2025</p>
-      </div>
-
-      <div class="swiper-slide cert-card">
-        <img src="/Cert/cert4.png" alt="Node.js Bootcamp 4" />
-        <div class="fullscreen-icon" onclick="openFullscreen('/Cert/cert4.png')">⛶</div>
-        <h3>Node.js Bootcamp</h3>
-        <p>Issued by LetsUpgrade.in - 25 Oct 2025</p>
-      </div>
+    <!-- Fullscreen view -->
+    <div class="fullscreen-view" id="fullscreenView">
+      <span class="close-fullscreen" onclick="closeFullscreen()">&times;</span>
+      <img id="fullscreenImg" src="" alt="Fullscreen Certificate" />
     </div>
-    <div class="swiper-pagination"></div>
-  </div>
 
-  <!-- Fullscreen view -->
-  <div class="fullscreen-view" id="fullscreenView">
-    <span class="close-fullscreen" onclick="closeFullscreen()">&times;</span>
-    <img id="fullscreenImg" src="" alt="Fullscreen Certificate" />
-  </div>
+    <script>
+      function openFullscreen(src) {
+        const view = document.getElementById('fullscreenView');
+        const img = document.getElementById('fullscreenImg');
+        img.src = src;
+        view.style.display = 'flex';
+      }
 
-  <script>
-    function openFullscreen(src) {
-      const view = document.getElementById('fullscreenView');
-      const img = document.getElementById('fullscreenImg');
-      img.src = src;
-      view.style.display = 'flex';
-    }
+      function closeFullscreen() {
+        document.getElementById('fullscreenView').style.display = 'none';
+      }
 
-    function closeFullscreen() {
-      document.getElementById('fullscreenView').style.display = 'none';
-    }
-
-    // Optional: close fullscreen on pressing ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeFullscreen();
-    });
-  </script>
-</section>
-
-
-
-
-
-
-
+      // Optional: close fullscreen on pressing ESC
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeFullscreen();
+      });
+    </script>
+  </section>
 
 
 
@@ -1405,7 +1770,7 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
   <section class="min-h-screen bg-white py-20 px-6">
     <div class="max-w-6xl mx-auto">
       <h2 class="text-4xl font-bold text-center text-gray-900 mb-16 tracking-tight">
-        Responsibilities & Achievements
+        🤝 Responsibilities & 🎯 Achievements
       </h2>
       <div class="grid md:grid-cols-3 gap-10">
         <!-- SCOS Card -->
@@ -1672,48 +2037,48 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
 
 
   <style>
-  .autoshow {
-    animation: slideIn both;
-    animation-timeline: view();
-    /* Trigger animation between 0% (when top enters) to 50% (center of viewport) */
-    animation-range: entry 20% cover 60%;
-  }
-
-  @keyframes slideIn {
-    0% {
-      opacity: 0;
-      transform: translateY(200px);
+    .autoshow {
+      animation: slideIn both;
+      animation-timeline: view();
+      /* Trigger animation between 0% (when top enters) to 50% (center of viewport) */
+      animation-range: entry 20% cover 60%;
     }
 
-    100% {
-      opacity: 1;
-      transform: translateY(0);
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(200px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-  }
-</style>
+  </style>
 
-<style>
-  .autoshow-left {
-    animation: slideInLeft both;
-    animation-timeline: view();
-    /* Start when top enters, end when it covers 60% (center-ish) */
-    animation-range: entry 0% cover 60%;
-  }
-
-  @keyframes slideInLeft {
-    0% {
-      opacity: 0;
-      transform: translateX(-200px);
+  <style>
+    .autoshow-left {
+      animation: slideInLeft both;
+      animation-timeline: view();
+      /* Start when top enters, end when it covers 60% (center-ish) */
+      animation-range: entry 0% cover 60%;
     }
 
-    100% {
-      opacity: 1;
-      transform: translateX(0);
+    @keyframes slideInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-200px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
-  }
 
 
-/* .autoshow-right {
+    /* .autoshow-right {
   animation: slideInRight both;
   animation-timeline: view();
   animation-range: entry 0% cover 60%;
@@ -1731,35 +2096,32 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
     transform: translateX(0);
   }
 } */
+  </style>
 
 
-</style>
-
-
-<style>
-  .autoshow-fade {
-    animation: fadeInOut both;
-    animation-timeline: view();
-    /* Fade starts after entering slightly, ends a bit after leaving */
-    animation-range: entry 10% exit 90%;
-  }
-
-  @keyframes fadeInOut {
-    0% {
-      opacity: 0;
+  <style>
+    .autoshow-fade {
+      animation: fadeInOut both;
+      animation-timeline: view();
+      /* Fade starts after entering slightly, ends a bit after leaving */
+      animation-range: entry 10% exit 90%;
     }
 
-    20% {
-      opacity: 1;
-    }
+    @keyframes fadeInOut {
+      0% {
+        opacity: 0;
+      }
 
-    80% {
-      opacity: 1;
-    }
+      20% {
+        opacity: 1;
+      }
 
-    100% {
-      opacity: 0;
-    }
-  }
-</style>
+      80% {
+        opacity: 1;
+      }
 
+      100% {
+        opacity: 0;
+      }
+    }
+  </style>
