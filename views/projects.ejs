@@ -1,11 +1,13 @@
 <% layout("/layouts/boilerplate") %>
 
-<section class="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-100 py-16 px-6">
+<section id="vanta-bg" class="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-100 py-16 px-6">
   <div class="max-w-6xl mx-auto">
     <h1 class="text-4xl font-extrabold text-center text-indigo-900 mb-12 tracking-tight">
-      <span class="inline-block bg-white/60 backdrop-blur-md px-6 py-2 rounded-full shadow">
+      <span class="inline-block bg-white backdrop-blur-md px-6 py-2 rounded-full shadow">
         Projects & Case Studies
       </span>
+      <p class="line-x text-center text-indigo-600 mt-2">Some of the best things I’ve built</p>
+      
     </h1>
 
     <% if (!projects || projects.length === 0) { %>
@@ -16,7 +18,7 @@
       <div class="grid md:grid-cols-2 gap-8">
         <% projects.forEach((project, index) => { %>
         <article
-          class="project-card group relative bg-white/60 backdrop-blur-xl border border-white/30 shadow-xl rounded-3xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl overflow-hidden"
+          class="project-card group relative bg-white backdrop-blur-xl border border-white/30 shadow-xl rounded-3xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl overflow-hidden"
           aria-labelledby="proj-title-<%= index %>"
         >
           <div class="flex items-center justify-between mb-4">
@@ -79,6 +81,33 @@
   </div>
 </section>
 
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+      VANTA.NET({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        scale: 1.0,
+        scaleMobile: 1.0,
+        color: 0x1c92d2,
+        backgroundColor: 0x000000,
+        points: 12.0,
+        maxDistance: 20.0,
+        spacing: 18.0,
+      });
+    });
+</script>
+
+
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.project-desc').forEach((para, i) => {
@@ -116,6 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
 .project-desc {
   white-space: normal;
 }
+ .line-x{
+    font-size: 25px;
+  }
+
 .project-card {
   position: relative;
   z-index: 1;
