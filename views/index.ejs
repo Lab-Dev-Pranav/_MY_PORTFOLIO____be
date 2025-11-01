@@ -1236,7 +1236,7 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
   <div class="container">
     <section id="blog" class="blog-section py-12 px-4 bg-white">
       <div class="max-w-6xl mx-auto">
-        <h2 class="text-4xl font-bold text-center text-gray-800 mb-10"> 
+        <h2 class="text-4xl font-bold text-center text-gray-800 mb-10">
           ✍️Blog Posts</h2>
 
         <!-- Blog grid  container -->
@@ -1250,12 +1250,12 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
     // DATA STARTED
     const blogPosts = [
       // blog posts data 1
-    {
-      id: 1,
-      title: "From Building Projects to Building Mindset",
-      subtitle: "🗂️ to 🧠",
-      date: "Oct 29 2025",
-      content: `
+      {
+        id: 1,
+        title: "From Building Projects to Building Mindset",
+        subtitle: "🗂️ to 🧠",
+        date: "Oct 29 2025",
+        content: `
     
         <p>When I first started coding, my goal was simple — just make things work. I didn’t care much about structure, design patterns, or optimization. The satisfaction of seeing “Hello World” on the screen was enough to keep me going.</p>
 
@@ -1273,34 +1273,46 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
 
         <p>Because at the end of the day, every project is more than just an app, a feature, or a repository. It’s a chapter in your story as a builder — and the story is what truly matters.</p>
       `,
-    },
+      },
 
-    // blog posts data 2
-//     {
-//   id: 2,
-//   title: "From Writing Code to Crafting Experiences",
-//   subtitle: "💻 to ✨",
-//   content: `
-//     <p>When I first started building websites, I focused on one thing — <strong>making them work</strong>. Buttons clicked, data fetched, pages loaded. That was enough to feel like progress.</p>
+      // blog posts data 2 READY BUT NOT VISIBLE
+      {
+        id: 3,
+        title: "From Static Pages to Reactive Interfaces",
+        subtitle: `
+          📦 to ⚛️
+      `,
+        content: `
+    <h2>From Static Pages to Reactive Interfaces</h2>
+    <p>When I started building projects with plain HTML, CSS, and JavaScript, everything worked — but nothing felt truly dynamic. Updating the DOM manually, managing states, and keeping designs responsive quickly became messy.</p>
 
-//     <p>But with time, I realized that code alone doesn’t make something great. A product isn’t defined by its logic — it’s defined by <strong>how it makes people feel</strong>.</p>
+    <p>Then I discovered <strong>React</strong>, and it completely changed how I thought about building UIs. It wasn’t just a new library — it was a new <em>way of thinking</em> about structure, interaction, and scalability.</p>
 
-//     <p>Every layout that felt awkward taught me about balance.<br>
-//     Every slow-loading page taught me about patience and optimization.<br>
-//     And every user who got confused reminded me of the importance of empathy.</p>
+    <h3>1️⃣ Responsiveness Made Simple</h3>
+    <p>React’s virtual DOM and state-based rendering made everything feel effortless. Instead of chasing elements across the page, I could focus on <strong>what changes</strong> — and React handled <strong>how</strong> it changed.</p>
 
-//     <p>Somewhere between pixels and functions, I stopped thinking like a coder — and started thinking like a creator. I began to see design and development not as separate disciplines, but as two sides of the same story: <em>the story of user experience</em>.</p>
+    <h3>2️⃣ Simplicity in Structure</h3>
+    <p>With JSX and component-based design, the code finally started making sense. Each file had a single responsibility — clear, organized, and reusable. Debugging stopped feeling like detective work.</p>
 
-//     <p>Great experiences aren’t built with frameworks or libraries. They’re built with curiosity — the willingness to ask, “What would make this smoother? Simpler? More human?”</p>
+    <h3>3️⃣ Reusable Components</h3>
+    <p>Whether it’s a button, a navbar, or a custom card — everything in React becomes modular. I learned that <strong>consistency</strong> isn’t about repetition; it’s about smart reuse.</p>
 
-//     <blockquote>“Good code solves a problem. Great code solves it beautifully.”</blockquote>
+    <h3>4️⃣ Data Where It Belongs</h3>
+    <p>React’s approach to component-level state and API calls made logic more maintainable. Each part of the UI could own its data, leading to cleaner and scalable structures.</p>
 
-//     <p>Now, every project I build is not just a tool or a feature — it’s an experience. Because what we truly create isn’t just code — it’s connection.</p>
-//   `,
-// }
+    <h3>5️⃣ Speed Meets Scalability</h3>
+    <p>Paired with Node or Express, React unlocked full-stack freedom. It wasn’t just about rendering faster — it was about building systems that could grow with my ideas.</p>
 
-];
-// data ENDS
+    <blockquote>“React isn’t just a library — it’s a mindset that turns development into design thinking.”</blockquote>
+
+    <p>Today, when I look back, I realize that learning React wasn’t just about improving code — it was about improving how I <em>think</em> as a developer. And that’s the kind of growth that lasts.</p>
+  `,
+      }
+
+
+
+    ];
+    // data ENDS
 
 
 
@@ -1369,137 +1381,143 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
   </script>
 
   <style>
-.fullscreen-container {
-  display: none;
-}
+    .fullscreen-container {
+      display: none;
+    }
 
-.fullscreen-container.active {
-  display: flex;
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at top left, rgba(22, 22, 30, 0.95), rgba(10, 10, 15, 0.95));
-  backdrop-filter: blur(14px) saturate(180%);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  animation: fadeIn 0.4s ease forwards;
-}
+    .fullscreen-container.active {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(22, 22, 30, 0.95), rgba(10, 10, 15, 0.95));
+      backdrop-filter: blur(14px) saturate(180%);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      animation: fadeIn 0.4s ease forwards;
+    }
 
-.fullscreen-content {
-  background: linear-gradient(135deg, #ffffff, #f7f9fc);
-  max-width: 850px;
-  width: 100%;
-  padding: 3rem;
-  border-radius: 1.8rem;
-  overflow-y: auto;
-  max-height: 90vh;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-  position: relative;
-  transform-origin: center;
-  animation: zoomIn 0.4s ease;
-  transition: all 0.3s ease;
-}
+    .fullscreen-content {
+      background: linear-gradient(135deg, #ffffff, #f7f9fc);
+      max-width: 850px;
+      width: 100%;
+      padding: 3rem;
+      border-radius: 1.8rem;
+      overflow-y: auto;
+      max-height: 90vh;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+      position: relative;
+      transform-origin: center;
+      animation: zoomIn 0.4s ease;
+      transition: all 0.3s ease;
+    }
 
-.fullscreen-content:hover {
-  transform: scale(1.01);
-  box-shadow: 0 12px 50px rgba(0, 0, 0, 0.3);
-}
-.close-fullscreen {
-  position: absolute;
-  top: 1.6rem;
-  right: 1.2rem;
-  background:  linear-gradient(135deg, #718bff, #3b5bff); 
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: #222;
-  border-radius: 5px;
-  width: 2.4rem;
-  height: 2.4rem;
-  line-height: 2.4rem;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
-  transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
-  z-index: 1000;
-}
+    .fullscreen-content:hover {
+      transform: scale(1.01);
+      box-shadow: 0 12px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .close-fullscreen {
+      position: absolute;
+      top: 1.6rem;
+      right: 1.2rem;
+      background: linear-gradient(135deg, #718bff, #3b5bff);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #222;
+      border-radius: 5px;
+      width: 2.4rem;
+      height: 2.4rem;
+      line-height: 2.4rem;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+    }
 
 
 
 
-.fullscreen-content h1 {
-  font-family: "Poppins", sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
-  color: #1c1f2e;
-  margin-bottom: 1rem;
-  border-bottom: 2px solid #eceff3;
-  padding-bottom: 0.5rem;
-}
+    .fullscreen-content h1 {
+      font-family: "Poppins", sans-serif;
+      font-weight: 700;
+      font-size: 2rem;
+      color: #1c1f2e;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #eceff3;
+      padding-bottom: 0.5rem;
+    }
 
-.fullscreen-body {
-  font-family: "Inter", sans-serif;
-  color: #3c3f4a;
-  font-size: 1.05rem;
-  line-height: 1.8;
-  animation: fadeSlideIn 0.6s ease;
-}
+    .fullscreen-body {
+      font-family: "Inter", sans-serif;
+      color: #3c3f4a;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      animation: fadeSlideIn 0.6s ease;
+    }
 
-.fullscreen-body p {
-  margin: 1rem 0;
-}
+    .fullscreen-body p {
+      margin: 1rem 0;
+    }
 
-.fullscreen-body blockquote {
-  border-left: 4px solid #007aff;
-  padding-left: 1rem;
-  margin: 1.5rem 0;
-  font-style: italic;
-  color: #222;
-  background: rgba(0, 122, 255, 0.05);
-  border-radius: 6px;
-}
+    .fullscreen-body blockquote {
+      border-left: 4px solid #007aff;
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: #222;
+      background: rgba(0, 122, 255, 0.05);
+      border-radius: 6px;
+    }
 
-.fullscreen-content::-webkit-scrollbar {
-  width: 6px;
-}
-.fullscreen-content::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #007aff, #4c7fff);
-  border-radius: 10px;
-}
-.fullscreen-content::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
+    .fullscreen-content::-webkit-scrollbar {
+      width: 6px;
+    }
 
-@keyframes zoomIn {
-  from {
-    transform: scale(0.92) translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
-}
+    .fullscreen-content::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #007aff, #4c7fff);
+      border-radius: 10px;
+    }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+    .fullscreen-content::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
 
-@keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.92) translateY(20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
 
     /* ------------------- CARD STYLES -------------- */
@@ -1511,7 +1529,8 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
       margin: 2em;
       background: #cfcfcf;
       padding: 40px 20px;
-      border-radius: 10px;
+      border-radius: 30px;
+      border: 10px solid rgba(0, 0, 0, 0.533);
     }
 
     .card {
@@ -1539,11 +1558,13 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
 
 
     @media (max-width: 768px) {
-  .fl {
-    opacity: 1;            /* always visible */
-    margin-right: 0.5em;   /* small spacing like hover */
-  }
-}
+      .fl {
+        opacity: 1;
+        /* always visible */
+        margin-right: 0.5em;
+        /* small spacing like hover */
+      }
+    }
 
     .fullscreen {
       width: 1.5em;
@@ -1619,7 +1640,7 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
       color: white;
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
-      font-size: 50px;
+      font-size: 40px;
     }
   </style>
   <!-- Blog Section E -->
@@ -1682,11 +1703,13 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
       }
 
       @media (max-width: 768px) {
-  .fullscreen-icon {
-    opacity: 1;            /* always visible */
-    margin-right: 0.5em;   /* small spacing like hover */
-  }
-}
+        .fullscreen-icon {
+          opacity: 1;
+          /* always visible */
+          margin-right: 0.5em;
+          /* small spacing like hover */
+        }
+      }
 
       /* Fullscreen overlay */
       .fullscreen-view {
@@ -1877,7 +1900,7 @@ l31 22 -31 18 c-20 11 -32 26 -32 39 0 45 25 45 90 -2z" />
     </div>
   </section>
   <br /><br /><br /><br />
- 
+
   <!-- Swiper Style + Script -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
