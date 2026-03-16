@@ -47,7 +47,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: false, // set to true if using HTTPS
+      secure: true, // set to true if using HTTPS
       maxAge: 1000 * 60 * 60 * 3, // 3 hours
     },
   })
@@ -171,7 +171,7 @@ app.get("/login", (req, res) => {
 
   // ✅ Show login page
   res.render("admin-login.ejs", {
-    username: process.env.SMTP_USER, 
+    username: process.env.SMTP_USER,
     title: "Admin Login",
     error:
       req.query.error === "invalid_credentials"
